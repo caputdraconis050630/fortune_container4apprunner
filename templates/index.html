@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>엉터리 신년 운세</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>엉터리 신년 운세</h1>
+    <form id="fortune-form">
+        <label for="name">이름:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="birth_date">생년월일:</label>
+        <input type="date" id="birth_date" name="birth_date" required><br><br>
+
+        <label>달력 유형:</label>
+        <input type="radio" id="solar" name="calendar_type" value="양력" checked>
+        <label for="solar">양력</label>
+        <input type="radio" id="lunar" name="calendar_type" value="음력">
+        <label for="lunar">음력</label><br><br>
+
+        <label for="birth_time">태어난 시각:</label>
+        <input type="time" id="birth_time" name="birth_time" required><br><br>
+
+        <label for="fortune_type">보고 싶은 운세:</label>
+        <select id="fortune_type" name="fortune_type" required>
+            <option value="종합운">종합운</option>
+            <option value="재물운">재물운</option>
+            <option value="연애운">연애운</option>
+            <option value="건강운">건강운</option>
+            <option value="학업운">학업운</option>
+        </select><br><br>
+
+        <input type="submit" value="운세 보기">
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#fortune-form').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/',
+                    type: 'post',
+                    data: $('#fortune-form').serialize(),
+                    success: function(response) {
+                        $('#result').html(response.fortune);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
