@@ -18,8 +18,10 @@ RUN apt-get update && apt-get install -y awscli
 # 5000 포트 노출 (Flask의 기본 포트)
 EXPOSE 5000
 
-# 환경 변수 설정 (AWS 자격 증명은 App Runner에서 설정)
+# 환경 변수 설정
 ENV AWS_DEFAULT_REGION=us-east-1
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=production
 
 # 애플리케이션 실행
-CMD ["python", "app.py"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
